@@ -1,6 +1,6 @@
 import Cookies from "js-cookie"
 
-const TOKEN = "Authentication"
+const TOKEN = "Authorization"
 
 export default {
   get: () => {

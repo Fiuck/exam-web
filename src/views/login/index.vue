@@ -49,28 +49,30 @@
 </template>
 
 <script>
-import { login } from "api/login"
+import { login } from "api/login";
+import { mapMutations } from "vuex";
 export default {
   data() {
     let validateUsername = (rule, value, callback) => {
       if (value === "") {
-        callback("用户名不可为空！")
+        callback("用户名不可为空！");
       }
-      callback()
-    }
+      callback();
+    };
     let validatePassword = (rule, value, callback) => {
       if (value === "") {
-        callback("密码不可为空！")
+        callback("密码不可为空！");
       } else if (value.length < 6) {
-        callback("密码长度必须大于6位！")
+        callback("密码长度必须大于6位！");
       }
-      callback()
-    }
+      callback();
+    };
     return {
       baseForm: {
         username: "",
         password: "",
       },
+      userToken: "",
       btnLoading: false,
       rules: {
         username: [{ validator: validateUsername, trigger: "change" }],
@@ -80,39 +82,44 @@ export default {
         labelCol: { span: 5 },
         wrapperCol: { span: 18 },
       },
-    }
+    };
   },
   methods: {
+    ...mapMutations({ toLogin: "TO_LOGIN" }),
     submitForm(formName) {
-      this.btnLoading = true
-      let _this = this
+      this.btnLoading = true;
+      let _this = this;
       setTimeout(() => {
         _this.$refs[formName].validate((valid) => {
           if (!valid) {
-            _this.btnLoading = false
-            return false
+            _this.btnLoading = false;
+            return false;
           }
           login(_this.baseForm)
             .then((res) => {
-              _this.btnLoading = false
-              _this.$router.replace({ path: "/index" })
+              _this.btnLoading = false;
+              _this.userToken = res.data.token;
+              // 将token保存到vuex中
+              _this.toLogin({ Authorization: _this.userToken });
+              // 跳转
+              _this.$router.replace({ path: "/index" });
               setTimeout(() => {
                 _this.$notification.success({
                   message: "欢迎",
                   description: "欢迎回来",
-                })
-              }, 1000)
+                });
+              }, 1000);
             })
             .catch((e) => {
-              _this.btnLoading = false
-              _this.$message.warning(e.message)
-              return false
-            })
-        })
-      }, 1000)
+              _this.btnLoading = false;
+              _this.$message.warning(e.message);
+              return false;
+            });
+        });
+      }, 1000);
     },
   },
-}
+};
 </script>
 
 <style lang="less" scoped>

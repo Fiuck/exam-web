@@ -1,5 +1,5 @@
 import axios from "axios"
-import Cookies from "utils/jsCookie"
+import storage from 'utils/storage'
 
 export function request(config) {
   const instance = axios.create({
@@ -11,7 +11,7 @@ export function request(config) {
   instance.interceptors.request.use(
     (config) => {
       // console.log(config)
-      config.headers["Authentication"] = Cookies.get()
+      config.headers["Authorization"] = storage.get('Authorization')
       return config
     },
     (err) => {
