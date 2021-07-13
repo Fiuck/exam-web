@@ -9,6 +9,7 @@
   "dependencies": {
     "ant-design-vue": "^1.7.6",
     "axios": "^0.21.1",
+    "compression-webpack-plugin": "5.0.1",
     "core-js": "3.6.4",
     "js-cookie": "^2.2.1",
     "vue": "^2.6.11",
