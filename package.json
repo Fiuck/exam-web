@@ -9,7 +9,6 @@
   "dependencies": {
     "ant-design-vue": "^1.7.6",
     "axios": "^0.21.1",
-    "compression-webpack-plugin": "5.0.1",
     "core-js": "3.6.4",
     "js-cookie": "^2.2.1",
     "vue": "^2.6.11",
@@ -21,6 +20,7 @@
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "compression-webpack-plugin": "5.0.0",
     "less": "^4.1.1",
     "less-loader": "7.x",
     "mockjs": "^1.1.0",

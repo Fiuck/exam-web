@@ -1,6 +1,6 @@
 import Mock from "mockjs"
 import userAPI from "./user"
 
-Mock.mock(/\/auth\/login/, "post", userAPI.login)
+// Mock.mock(/\/auth\/login/, "post", userAPI.login)
 
 export default Mock

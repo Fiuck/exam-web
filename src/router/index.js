@@ -1,19 +1,20 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import layout from 'components/content/layout'
-import storage from 'utils/storage'
+import Vue from "vue"
+import VueRouter from "vue-router"
+import layout from "components/content/layout"
+import storage from "utils/storage"
+import { notification } from "ant-design-vue"
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'login',
-    component: () => import('views/login')
+    path: "/login",
+    name: "login",
+    component: () => import("views/login"),
   },
   {
-    path: '/index',
-    name: 'index',
+    path: "/index",
+    name: "index",
     component: layout,
     children: [
       // {
@@ -22,14 +23,14 @@ const routes = [
       //   component: () => import('views/dashboard'),
       //   meta: { title: '控制台' }
       // }
-    ]
-  }
+    ],
+  },
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
 
 /**
@@ -37,13 +38,16 @@ const router = new VueRouter({
  * 如果没有token，则去登录页面
  */
 router.beforeEach((to, from, next) => {
-  if (to.path === '/login') {
+  if (to.path === "/login") {
     next()
   } else {
-    let token = storage.get('Authorization')
-
+    let token = storage.get("Authorization")
     if (!token) {
-      next('/login')
+      notification.error({
+        message: "错误",
+        description: "登录时效已过期，请重新登录！",
+      })
+      next("/login")
     } else {
       next()
     }
