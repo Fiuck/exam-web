@@ -3,7 +3,7 @@ import storage from "utils/storage"
 
 export function request(config) {
   const instance = axios.create({
-    baseURL: "http://dev.lemcoo.top",
+    baseURL: "https://dev.lemcoo.top",
     timeout: 5000,
   })
 
