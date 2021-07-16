@@ -1,5 +1,9 @@
 <template>
   <div class="main">
+    <ul class="bg-bubbles">
+      <li v-for="i in 10" :key="i"></li>
+    </ul>
+
     <div class="login-container">
       <div class="login-wrapper">
         <div class="login-img">
@@ -49,24 +53,24 @@
 </template>
 
 <script>
-import { login } from "api/login"
-import { mapMutations } from "vuex"
+import { login } from "api/login";
+import { mapMutations } from "vuex";
 export default {
   data() {
     let validateUsername = (rule, value, callback) => {
       if (value === "") {
-        callback("用户名不可为空！")
+        callback("用户名不可为空！");
       }
-      callback()
-    }
+      callback();
+    };
     let validatePassword = (rule, value, callback) => {
       if (value === "") {
-        callback("密码不可为空！")
+        callback("密码不可为空！");
       } else if (value.length < 6) {
-        callback("密码长度必须大于6位！")
+        callback("密码长度必须大于6位！");
       }
-      callback()
-    }
+      callback();
+    };
     return {
       baseForm: {
         username: "",
@@ -82,44 +86,44 @@ export default {
         labelCol: { span: 5 },
         wrapperCol: { span: 18 },
       },
-    }
+    };
   },
   methods: {
     ...mapMutations({ toLogin: "TO_LOGIN" }),
     submitForm(formName) {
-      this.btnLoading = true
-      let _this = this
+      this.btnLoading = true;
+      let _this = this;
       setTimeout(() => {
         _this.$refs[formName].validate((valid) => {
           if (!valid) {
-            _this.btnLoading = false
-            return false
+            _this.btnLoading = false;
+            return false;
           }
           login(_this.baseForm)
             .then((res) => {
-              _this.btnLoading = false
-              _this.userToken = res.data.token
+              _this.btnLoading = false;
+              _this.userToken = res.data.token;
               // 将token保存到vuex中
-              _this.toLogin({ Authorization: _this.userToken })
+              _this.toLogin({ Authorization: _this.userToken });
               // 跳转
-              _this.$router.replace({ path: "/index" })
+              _this.$router.replace({ path: "/index" });
               setTimeout(() => {
                 _this.$notification.success({
                   message: "欢迎",
                   description: "欢迎回来",
-                })
-              }, 1000)
+                });
+              }, 1000);
             })
             .catch((e) => {
-              _this.btnLoading = false
-              _this.$message.warning(e.message)
-              return false
-            })
-        })
-      }, 1000)
+              _this.btnLoading = false;
+              _this.$message.warning(e.message);
+              return false;
+            });
+        });
+      }, 1000);
     },
   },
-}
+};
 </script>
 
 <style lang="less" scoped>
@@ -173,5 +177,107 @@ h2 {
   cursor: pointer;
   user-select: none;
   font-weight: bold;
+}
+.bg-bubbles {
+  position: absolute;
+  // 使气泡背景充满整个屏幕；
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  // 如果元素内容超出给定的宽度和高度，overflow 属性可以确定是否显示滚动条等行为；
+  overflow: hidden;
+  li {
+    position: absolute;
+    // bottom 的设置是为了营造出气泡从页面底部冒出的效果；
+    bottom: -160px;
+    // 默认的气泡大小；
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.15);
+    list-style: none;
+    // 使用自定义动画使气泡渐现、上升和翻滚；
+    animation: square 15s infinite;
+    transition-timing-function: linear;
+    // 分别设置每个气泡不同的位置、大小、透明度和速度，以显得有层次感；
+    // border-radius: 50%;
+    &:nth-child(1) {
+      left: 10%;
+    }
+    &:nth-child(2) {
+      left: 20%;
+      width: 90px;
+      height: 90px;
+      animation-delay: 2s;
+      animation-duration: 7s;
+    }
+    &:nth-child(3) {
+      left: 25%;
+      animation-delay: 4s;
+    }
+    &:nth-child(4) {
+      left: 40%;
+      width: 60px;
+      height: 60px;
+      animation-duration: 8s;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+    &:nth-child(5) {
+      left: 70%;
+    }
+    &:nth-child(6) {
+      left: 80%;
+      width: 120px;
+      height: 120px;
+      animation-delay: 3s;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    &:nth-child(7) {
+      left: 32%;
+      width: 160px;
+      height: 160px;
+      animation-delay: 2s;
+    }
+    &:nth-child(8) {
+      left: 55%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 4s;
+      animation-duration: 15s;
+    }
+    &:nth-child(9) {
+      left: 25%;
+      width: 10px;
+      height: 10px;
+      animation-delay: 2s;
+      animation-duration: 12s;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+    &:nth-child(10) {
+      left: 85%;
+      width: 160px;
+      height: 160px;
+      animation-delay: 5s;
+    }
+  }
+  // 自定义 square 动画；
+  @keyframes square {
+    0% {
+      opacity: 0.5;
+      transform: translateY(0px) rotate(45deg);
+    }
+    25% {
+      opacity: 0.75;
+      transform: translateY(-400px) rotate(90deg);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-600px) rotate(135deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-1000px) rotate(180deg);
+    }
+  }
 }
 </style>
