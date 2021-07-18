@@ -1,9 +1,8 @@
 <template>
   <div class="main">
     <ul class="bg-bubbles">
-      <li v-for="i in 10" :key="i"></li>
+      <li v-for="i in 15" :key="i"></li>
     </ul>
-
     <div class="login-container">
       <div class="login-wrapper">
         <div class="login-img">
@@ -53,24 +52,24 @@
 </template>
 
 <script>
-import { login } from "api/login";
-import { mapMutations } from "vuex";
+import { login } from "api/login"
+import { mapMutations } from "vuex"
 export default {
   data() {
     let validateUsername = (rule, value, callback) => {
       if (value === "") {
-        callback("用户名不可为空！");
+        callback("用户名不可为空！")
       }
-      callback();
-    };
+      callback()
+    }
     let validatePassword = (rule, value, callback) => {
       if (value === "") {
-        callback("密码不可为空！");
+        callback("密码不可为空！")
       } else if (value.length < 6) {
-        callback("密码长度必须大于6位！");
+        callback("密码长度必须大于6位！")
       }
-      callback();
-    };
+      callback()
+    }
     return {
       baseForm: {
         username: "",
@@ -86,44 +85,51 @@ export default {
         labelCol: { span: 5 },
         wrapperCol: { span: 18 },
       },
-    };
+    }
+  },
+  mounted() {
+    //绘制canvas图像
+    this.getCanvas()
+    //设置canvas图像为背景
+    document.getElementById("main").style.backgroundImage =
+      'url("' + context.canvas.toDataURL() + '")'
   },
   methods: {
     ...mapMutations({ toLogin: "TO_LOGIN" }),
     submitForm(formName) {
-      this.btnLoading = true;
-      let _this = this;
+      this.btnLoading = true
+      let _this = this
       setTimeout(() => {
         _this.$refs[formName].validate((valid) => {
           if (!valid) {
-            _this.btnLoading = false;
-            return false;
+            _this.btnLoading = false
+            return false
           }
           login(_this.baseForm)
             .then((res) => {
-              _this.btnLoading = false;
-              _this.userToken = res.data.token;
+              _this.btnLoading = false
+              _this.userToken = res.data.token
               // 将token保存到vuex中
-              _this.toLogin({ Authorization: _this.userToken });
+              _this.toLogin({ Authorization: _this.userToken })
               // 跳转
-              _this.$router.replace({ path: "/index" });
+              _this.$router.replace({ path: "/index" })
               setTimeout(() => {
                 _this.$notification.success({
                   message: "欢迎",
                   description: "欢迎回来",
-                });
-              }, 1000);
+                })
+              }, 1000)
             })
             .catch((e) => {
-              _this.btnLoading = false;
-              _this.$message.warning(e.message);
-              return false;
-            });
-        });
-      }, 1000);
+              _this.btnLoading = false
+              _this.$message.warning(e.message)
+              return false
+            })
+        })
+      }, 1000)
     },
   },
-};
+}
 </script>
 
 <style lang="less" scoped>
@@ -140,6 +146,7 @@ export default {
   align-items: center;
   padding: 15px;
   background: linear-gradient(-135deg, #c850c0, #4158d0);
+  z-index: 10;
 }
 .login-wrapper {
   width: 960px;
@@ -163,20 +170,6 @@ h2 {
   text-align: center;
   margin-bottom: 40px;
   font-size: 30px;
-}
-.close-window {
-  position: absolute;
-  right: 0px;
-  top: 0px;
-  background-color: #fff;
-  width: 60px;
-  height: 30px;
-  border-radius: 0 0 0 10px;
-  text-align: center;
-  line-height: 30px;
-  cursor: pointer;
-  user-select: none;
-  font-weight: bold;
 }
 .bg-bubbles {
   position: absolute;
@@ -216,7 +209,7 @@ h2 {
       animation-delay: 4s;
     }
     &:nth-child(4) {
-      left: 40%;
+      left: 44%;
       width: 60px;
       height: 60px;
       animation-duration: 8s;
@@ -233,7 +226,7 @@ h2 {
       background-color: rgba(255, 255, 255, 0.2);
     }
     &:nth-child(7) {
-      left: 32%;
+      left: 90%;
       width: 160px;
       height: 160px;
       animation-delay: 2s;
@@ -254,10 +247,28 @@ h2 {
       background-color: rgba(255, 255, 255, 0.3);
     }
     &:nth-child(10) {
-      left: 85%;
+      left: 65%;
       width: 160px;
       height: 160px;
       animation-delay: 5s;
+    }
+    &:nth-child(11) {
+      left: 55%;
+      width: 160px;
+      height: 160px;
+      animation-delay: 3s;
+    }
+    &:nth-child(12) {
+      left: 5%;
+      width: 160px;
+      height: 160px;
+      animation-delay: 3s;
+    }
+    &:nth-child(13) {
+      left: 20%;
+      width: 90px;
+      height: 90px;
+      animation-delay: 2s;
     }
   }
   // 自定义 square 动画；
