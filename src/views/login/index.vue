@@ -65,8 +65,8 @@ export default {
     let validatePassword = (rule, value, callback) => {
       if (value === "") {
         callback("密码不可为空！")
-      } else if (value.length < 6) {
-        callback("密码长度必须大于6位！")
+      } else if (value.length <= 3) {
+        callback("密码长度必须大于3位！")
       }
       callback()
     }
