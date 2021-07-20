@@ -87,13 +87,6 @@ export default {
       },
     }
   },
-  mounted() {
-    //绘制canvas图像
-    this.getCanvas()
-    //设置canvas图像为背景
-    document.getElementById("main").style.backgroundImage =
-      'url("' + context.canvas.toDataURL() + '")'
-  },
   methods: {
     ...mapMutations({ toLogin: "TO_LOGIN" }),
     submitForm(formName) {
