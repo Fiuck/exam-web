@@ -26,7 +26,7 @@ export function request(config) {
     (response) => {
       let d = response.data
       // console.log(response)
-      if (d.code !== 200) {
+      if (d.code < 2000 || d.code >= 3000) {
         return Promise.reject(d)
       }
       return d

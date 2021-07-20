@@ -88,7 +88,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({ toLogin: "TO_LOGIN" }),
+    // ...mapMutations({ toLogin: "TO_LOGIN" }),
+    ...mapMutations(["TO_LOGIN"]),
     submitForm(formName) {
       this.btnLoading = true
       let _this = this
@@ -98,14 +99,17 @@ export default {
             _this.btnLoading = false
             return false
           }
+          // 登录接口
           login(_this.baseForm)
             .then((res) => {
+              // 登录成功
               _this.btnLoading = false
               _this.userToken = res.data.token
               // 将token保存到vuex中
-              _this.toLogin({ Authorization: _this.userToken })
+              _this.TO_LOGIN({ Authorization: _this.userToken })
               // 跳转
               _this.$router.replace({ path: "/index" })
+              // 成功友好提示
               setTimeout(() => {
                 _this.$notification.success({
                   message: "欢迎",
@@ -114,8 +118,10 @@ export default {
               }, 1000)
             })
             .catch((e) => {
+              // 登录失败
               _this.btnLoading = false
-              _this.$message.warning(e.message)
+              _this.$message.warning(e.msg)
+              _this.baseForm.password = ""
               return false
             })
         })

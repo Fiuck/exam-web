@@ -7,6 +7,7 @@ const state = {
 
 const mutations = {
   TO_LOGIN: (state, payload) => {
+    console.log(payload);
     storage.set('Authorization', payload.Authorization)
     state.Authorization = payload.Authorization
   }
