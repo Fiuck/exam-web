@@ -5,7 +5,7 @@ export function request(config) {
   const instance = axios.create({
     // baseURL: "https://dev.lemcoo.top",
     // baseURL: "localhost:9991",
-    timeout: 5000,
+    timeout: 20000,
   })
 
   // 请求拦截器
