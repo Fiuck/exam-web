@@ -42,10 +42,11 @@ const router = new VueRouter({
  * 如果没有token，则去登录页面
  */
 router.beforeEach((to, from, next) => {
+  let token = storage.get("Authorization")
   if (to.path === "/login") {
+    if (token) next("/index")
     next()
   } else {
-    let token = storage.get("Authorization")
     if (!token) {
       notification.error({
         message: "错误",

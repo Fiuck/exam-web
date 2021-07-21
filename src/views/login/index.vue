@@ -88,7 +88,6 @@ export default {
     }
   },
   methods: {
-    // ...mapMutations({ toLogin: "TO_LOGIN" }),
     ...mapMutations(["TO_LOGIN"]),
     submitForm(formName) {
       this.btnLoading = true
@@ -104,7 +103,7 @@ export default {
             .then((res) => {
               // 登录成功
               _this.btnLoading = false
-              _this.userToken = res.data.token
+              _this.userToken = res.data
               // 将token保存到vuex中
               _this.TO_LOGIN({ Authorization: _this.userToken })
               // 跳转
