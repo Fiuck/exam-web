@@ -12,7 +12,7 @@ export function request(config) {
   instance.interceptors.request.use(
     (config) => {
       // console.log(config)
-      config.headers["Authorization"] = storage.get("Authorization")
+      config.headers["Authorization"] = 'Bearer ' + storage.get("Authorization")
       return config
     },
     (err) => {
