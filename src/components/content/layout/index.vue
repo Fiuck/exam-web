@@ -1,8 +1,8 @@
 <template>
   <a-layout id="components-layout-demo-custom-trigger">
-    <sider :collapsed="collapsed"></sider>
+    <sider></sider>
     <a-layout>
-      <top-bar></top-bar>
+      <nav-bar></nav-bar>
       <a-layout-content
         :style="{
           margin: '24px 16px',
@@ -18,17 +18,15 @@
 </template>
 <script>
 import Sider from "components/content/sider"
-import TopBar from "components/content/topbar"
+import NavBar from "components/content/navbar"
 export default {
   name: "Layout",
   components: {
     Sider,
-    TopBar,
+    NavBar,
   },
   data() {
-    return {
-      collapsed: false,
-    }
+    return {}
   },
 }
 </script>

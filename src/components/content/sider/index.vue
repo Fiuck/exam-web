@@ -1,5 +1,5 @@
 <template>
-  <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
+  <a-layout-sider v-model="isCollapsed" :trigger="null" collapsible>
     <div class="logo" />
     <sider-bar></sider-bar>
   </a-layout-sider>
@@ -7,20 +7,21 @@
 
 <script>
 import SiderBar from "components/content/sider/siderbar"
+import { mapGetters } from "vuex"
 export default {
   name: "Sider",
   components: {
     SiderBar,
   },
-  props: {
-    collapsed: {
-      type: Boolean,
-      default: false,
+  computed: {
+    ...mapGetters(["siderbar"]),
+    isCollapsed() {
+      return !this.siderbar.opened
     },
   },
   data() {
     return {
-      // collapsed: this.collapsed,
+      collapsed: this.collapsed,
     }
   },
 }
