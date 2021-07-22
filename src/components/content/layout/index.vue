@@ -2,13 +2,7 @@
   <a-layout id="components-layout-demo-custom-trigger">
     <sider :collapsed="collapsed"></sider>
     <a-layout>
-      <a-layout-header style="background: #fff; padding: 0">
-        <a-icon
-          class="trigger"
-          :type="collapsed ? 'menu-unfold' : 'menu-fold'"
-          @click="() => (collapsed = !collapsed)"
-        />
-      </a-layout-header>
+      <top-bar></top-bar>
       <a-layout-content
         :style="{
           margin: '24px 16px',
@@ -24,10 +18,12 @@
 </template>
 <script>
 import Sider from "components/content/sider"
+import TopBar from "components/content/topbar"
 export default {
   name: "Layout",
   components: {
     Sider,
+    TopBar,
   },
   data() {
     return {
