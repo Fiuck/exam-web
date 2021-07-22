@@ -192,8 +192,16 @@ h2 {
     transition-timing-function: linear;
     // 分别设置每个气泡不同的位置、大小、透明度和速度，以显得有层次感；
     // border-radius: 50%;
+    &:hover {
+      animation-play-state: paused;
+      // transition: 0.1s all linear;
+    }
     &:nth-child(1) {
       left: 10%;
+      width: 120px;
+      height: 120px;
+      animation-delay: 6s;
+      animation-duration: 7s;
     }
     &:nth-child(2) {
       left: 20%;
@@ -203,7 +211,9 @@ h2 {
       animation-duration: 7s;
     }
     &:nth-child(3) {
-      left: 25%;
+      left: 17%;
+      width: 160px;
+      height: 160px;
       animation-delay: 4s;
     }
     &:nth-child(4) {
@@ -231,15 +241,15 @@ h2 {
     }
     &:nth-child(8) {
       left: 55%;
-      width: 20px;
-      height: 20px;
+      width: 60px;
+      height: 60px;
       animation-delay: 4s;
       animation-duration: 15s;
     }
     &:nth-child(9) {
       left: 25%;
-      width: 10px;
-      height: 10px;
+      width: 80px;
+      height: 80px;
       animation-delay: 2s;
       animation-duration: 12s;
       background-color: rgba(255, 255, 255, 0.3);
@@ -263,10 +273,22 @@ h2 {
       animation-delay: 3s;
     }
     &:nth-child(13) {
-      left: 20%;
+      left: 24%;
       width: 90px;
       height: 90px;
       animation-delay: 2s;
+    }
+    &:nth-child(14) {
+      left: 10%;
+      width: 90px;
+      height: 90px;
+      animation-delay: 1s;
+    }
+    &:nth-child(15) {
+      left: 3%;
+      width: 90px;
+      height: 90px;
+      animation-delay: 1s;
     }
   }
   // 自定义 square 动画；
