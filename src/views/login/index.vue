@@ -99,6 +99,7 @@ export default {
             return false
           }
           // 登录接口
+          // TODO 这里改成vuex 的actions 2021年7月22日14:08:46
           login(_this.baseForm)
             .then((res) => {
               // 登录成功
@@ -107,7 +108,10 @@ export default {
               // 将token保存到vuex中
               _this.TO_LOGIN({ Authorization: _this.userToken })
               // 跳转
-              _this.$router.replace({ path: "/index" })
+              _this.$router.replace({
+                // 如果存在 query 就进入 query 存储的页面，如果没有就进入首页
+                path: _this.$route.query.redirect || "/index",
+              })
               // 成功友好提示
               setTimeout(() => {
                 _this.$notification.success({

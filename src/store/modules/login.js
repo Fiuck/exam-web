@@ -1,14 +1,13 @@
 import storage from 'utils/storage'
 
 const state = {
-  Authorization: storage.get('Authorization') || '',
+  Authorization: storage.getToken() || '',
   userInfo: storage.get('userInfo') || {}
 }
 
 const mutations = {
   TO_LOGIN: (state, payload) => {
-    console.log(payload);
-    storage.set('Authorization', payload.Authorization)
+    storage.setToken(payload.Authorization)
     state.Authorization = payload.Authorization
   }
 }

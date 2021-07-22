@@ -12,7 +12,12 @@ export function request(config) {
   instance.interceptors.request.use(
     (config) => {
       // console.log(config)
-      config.headers["Authorization"] = 'Bearer ' + storage.get("Authorization")
+      // 是否需要设置 token
+      const isToken = (config.headers || {}).isToken === false
+      if (storage.getToken() && !isToken) {
+        config.headers["Authorization"] = 'Bearer ' + storage.getToken()
+      }
+
       return config
     },
     (err) => {
@@ -32,8 +37,17 @@ export function request(config) {
       return d
     },
     (err) => {
-      console.log(err)
-      return Promise.reject(err)
+      let { message } = err;
+      if (message == "Network Error") {
+        message = "后端接口连接异常";
+      }
+      else if (message.includes("timeout")) {
+        message = "系统接口请求超时";
+      }
+      else if (message.includes("Request failed with status code")) {
+        message = "系统接口" + message.substr(message.length - 3) + "异常";
+      }
+      return Promise.reject({ msg: message })
     }
   )
 

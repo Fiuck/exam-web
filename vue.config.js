@@ -15,12 +15,12 @@ module.exports = {
     open: true, //配置自动启动浏览器
     proxy: {
       '/api': {
-        target: 'http://localhost:9991',//写上接口基地址
+        target: 'http://localhost:9991/',//写上接口基地址
         changeOrigin: true,
         ws: true,
         // secure: false, //如果是http接口，需要配置此参数
         pathRewrite: {
-          '^/api': '/'
+          '^/api': ''
         }
       }
     }
