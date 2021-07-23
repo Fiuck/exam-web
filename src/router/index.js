@@ -15,7 +15,7 @@ const routes = [
   },
   {
     path: "/login",
-    name: "login",
+    name: "Login",
     component: () => import("views/login"),
     meta: {
       requireAuth: false
@@ -23,7 +23,7 @@ const routes = [
   },
   {
     path: "/index",
-    name: "index",
+    name: "Layout",
     component: layout,
     meta: {
       requireAuth: true

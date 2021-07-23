@@ -53,6 +53,7 @@
 
 <script>
 export default {
+  name: "Login",
   data() {
     let validateUsername = (rule, value, callback) => {
       if (value === "") {
