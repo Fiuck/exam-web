@@ -110,8 +110,9 @@ export default {
                 _this.$notification.success({
                   message: "欢迎",
                   description: "欢迎回来",
+                  duration: 3,
                 })
-              }, 1000)
+              }, 500)
             })
             .catch((e) => {
               // 登录失败

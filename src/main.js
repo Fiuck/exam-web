@@ -7,6 +7,7 @@ import Antd from "ant-design-vue"
 import "ant-design-vue/dist/antd.css"
 
 import "@/mock"
+import './permission' // permission control
 
 Vue.use(Antd)
 Vue.config.productionTip = false

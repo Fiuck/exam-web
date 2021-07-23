@@ -7,11 +7,7 @@
     />
     <a-dropdown class="avatar-container">
       <span class="avatar-wrapper">
-        <a-avatar
-          :size="40"
-          shape="square"
-          src="https://img.lemcoo.top/web-img/20210722230926.gif"
-        />
+        <a-avatar :size="40" shape="square" :src="avatar" />
         <span class="user-label">{{ username }}</span>
       </span>
       <a-menu slot="overlay">
@@ -20,7 +16,7 @@
           个人中心
         </a-menu-item>
         <a-menu-divider />
-        <a-menu-item key="1">
+        <a-menu-item key="1" @click.native="logout">
           <a-icon type="logout" />
           登出
         </a-menu-item>
@@ -34,7 +30,7 @@ import { mapGetters } from "vuex"
 export default {
   name: "NavBar",
   computed: {
-    ...mapGetters(["siderbar", "username"]),
+    ...mapGetters(["siderbar", "username", "avatar"]),
     isCollapsed() {
       return this.siderbar.opened
     },
@@ -42,6 +38,20 @@ export default {
   methods: {
     toggleSiderBar() {
       this.$store.dispatch("app/toggleSiderBar")
+    },
+    // 注销
+    logout() {
+      let _this = this
+      this.$confirm({
+        title: "确定注销并退出系统吗？",
+        okText: "确定",
+        cancelText: "取消",
+        onOk() {
+          _this.$store.dispatch("login/LogOut").then(() => {
+            location.href = "/login"
+          })
+        },
+      })
     },
   },
 }

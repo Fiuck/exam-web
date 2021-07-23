@@ -11,6 +11,9 @@ export default {
   set: (key, value) => {
     return window.localStorage.setItem(key, JSON.stringify(value))
   },
+  removeToken: () => {
+    return window.localStorage.removeItem('Authorization')
+  },
   remove: (key) => {
     return window.localStorage.removeItem(key)
   },
